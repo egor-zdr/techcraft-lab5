@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechCraft — Конфігуратор ПК</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Шапка сайту -->
+    <header class="header">
+        <div class="container header__container">
+            <a href="#" class="logo">Tech<span>Craft</span></a>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="#hero" class="nav__link active">Головна</a></li>
+                    <li><a href="#components" class="nav__link">Комплектуючі</a></li>
+                    <li><a href="#configurator" class="nav__link">Заявка</a></li>
+                </ul>
+            </nav>
+            <div style="color: #94a3b8; font-size: 14px;">
+                Кошик: <strong id="cart-count" style="color: #f59e0b;">0</strong> шт. (<span id="cart-total">0</span> ₴)
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Головний банер (Hero) -->
+        <section id="hero" class="hero">
+            <div class="container hero__container">
+                <div class="hero__content">
+                    <h1 class="hero__title">Збери свій ідеальний ПК разом із TechCraft</h1>
+                    <p class="hero__text">Інтерактивний конфігуратор комп'ютерів із перевіркою сумісності компонентів, базою даних та точним розрахунком вартості.</p>
+                    <div class="hero__actions">
+                        <a href="#configurator" class="btn btn--primary">Оформити заявку</a>
+                        <a href="#components" class="btn btn--outline">Каталог деталей</a>
+                    </div>
+                </div>
+                <div class="hero__image">
+                    <div class="pc-preview">
+                        <span>TechCraft Full-Stack Engine</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Популярні комплектуючі (Динамічне завантаження з SQLite + CRUD) -->
+        <section id="components" class="components">
+            <div class="container">
+                <h2 class="section-title">Каталог комплектуючих (БД SQLite)</h2>
+
+                <!-- Форма додавання нового компонента (POST /api/components) -->
+                <form id="add-component-form" class="admin-panel">
+                    <select id="comp-category" required>
+                        <option value="CPU">CPU</option>
+                        <option value="GPU">GPU</option>
+                        <option value="RAM">RAM</option>
+                        <option value="SSD">SSD</option>
+                        <option value="PSU">PSU</option>
+                    </select>
+                    <input type="text" id="comp-title" placeholder="Назва комплектуючого" required>
+                    <input type="text" id="comp-desc" placeholder="Характеристики" required>
+                    <input type="number" id="comp-price" placeholder="Ціна (₴)" min="1" required>
+                    <button type="submit" class="btn btn--primary">+ Додати в БД</button>
+                </form>
+
+                <!-- Контейнер для карток із сервера -->
+                <div id="components-grid" class="components__grid">
+                    <p style="color: #94a3b8;">Завантаження комплектуючих із сервера...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Модуль конфігуратора -->
+        <section id="configurator" class="configurator">
+            <div class="container">
+                <h2 class="section-title">Форма швидкої заявки</h2>
+                <form id="order-form" class="configurator__form">
+                    <div class="form-group">
+                        <label for="user-name">Ваше ім'я:</label>
+                        <input type="text" id="user-name" placeholder="Введіть ваше ім'я" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; background: #222; color: #fff;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-email">Email:</label>
+                        <input type="email" id="user-email" placeholder="example@gmail.com" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; background: #222; color: #fff;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-phone">Телефон:</label>
+                        <input type="tel" id="user-phone" placeholder="+380XXXXXXXXX" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; background: #222; color: #fff;">
+                    </div>
+
+                    <button type="submit" class="btn btn--primary" style="width: 100%; padding: 12px; margin-top: 10px;">Надіслати заявку в БД</button>
+                </form>
+
+                <!-- Список збережених заявок з бази даних -->
+                <div class="orders-list" id="orders-container">
+                    <h3 style="text-align: center; margin-bottom: 10px;">Останні заявки з бази даних:</h3>
+                    <div id="orders-list"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Підвал -->
+    <footer class="footer">
+        <div class="container footer__container">
+            <p>&copy; 2026 TechCraft PC Configurator. Задорожний Єгор.</p>
+            <div class="footer__links">
+                <a href="#">Політика конфіденційності</a>
+                <a href="#">Умови сервісу</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальне вікно -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3 id="modal-title">Товар додано до кошика!</h3>
+            <p style="margin-top: 10px; color: #555;">Дякуємо за вибір TechCraft.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
